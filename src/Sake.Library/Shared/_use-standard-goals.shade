@@ -19,6 +19,7 @@ default BUILD_PROJECTS='${Files.Include(SRC+"/**/*.csproj")}'
 default TEST_PROJECTS='${Files.Include(SRC+"/**/*.Tests.csproj")}'
 default TEST_ASSEMBLIES='${Files.Include("target/test/**/*.Tests.dll")}'
 
+default NUGET_DEPLOY=''
 
 #target-dir-clean target="clean"
   directory delete="${TARGET_DIR}"
@@ -52,7 +53,7 @@ default TEST_ASSEMBLIES='${Files.Include("target/test/**/*.Tests.dll")}'
 #nuget-package target='package' description='Create NuGet packages' if='HasFeature("nuget")'
   for each='var file in Files.Include("target/build/**/*.nuspec")'
     var baseName='${Path.GetFileNameWithoutExtension(file)}'
-    nuget-pack nuspecFile='${file}' packageVersion='${FULL_VERSION}' outputDir='${TARGET_DIR}' extra='-NoPackageAnalysis -Properties "id=${baseName};authors=${AUTHORS}"'
+    nuget-pack nuspecFile='${file}' packageVersion='${FULL_VERSION}' outputDir='${TARGET_DIR}' extra='-NoPackageAnalysis -Properties "id=${baseName};authors=${AUTHORS};author=${AUTHORS};title=${baseName};description=${baseName}"'
 
 
 #nuget-install target='install' description='Copy NuGet packages to local repo' if='HasFeature("nuget")'
@@ -62,4 +63,4 @@ default TEST_ASSEMBLIES='${Files.Include("target/test/**/*.Tests.dll")}'
 
 
 #nuget-deploy target='deploy' description='Upload NuGet packages to gallery' if='HasFeature("nuget")'
-  nuget-push each='var nupkgFile in Files.Include("target/*.nupkg")'
+  nuget-push each='var nupkgFile in Files.Include("target/*.nupkg")' source='${NUGET_DEPLOY}'
