@@ -1,0 +1,5 @@
+﻿
+
+#test-stylecop-should-run-against-csproj
+  stylecop stylecopProject='Data\StyleCop\testing.proj'
+  

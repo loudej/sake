@@ -1,0 +1,5 @@
+﻿
+
+#test-build-can-run-against-proj
+  build projectFile='Data\StyleCop\testing.proj'
+  

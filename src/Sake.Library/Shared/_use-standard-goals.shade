@@ -41,6 +41,8 @@ default NUGET_DEPLOY=''
     var outputDir='${Path.Combine(TEST_DIR, Path.GetFileNameWithoutExtension(projectFile))}'
     build configuration='Debug'
 
+#stylecop-validate target="validate" description='Run stylecop validation' if='HasFeature("stylecop")'
+  stylecop each='var stylecopProject in BUILD_PROJECTS.Except(TEST_PROJECTS)'
 
 #xunit-test target="test" description='Run xunit tests' if='HasFeature("xunit")'
   xunit each='var testFile in TEST_ASSEMBLIES'
